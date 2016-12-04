@@ -1,4 +1,4 @@
-package pl.memleak.krblib;
+package pl.memleak.krbadmin;
 
 public interface KrbAdmin {
     void addPrincipal(String principal, String password) throws KrbAdminException;
