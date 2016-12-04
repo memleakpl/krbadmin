@@ -1,0 +1,43 @@
+group 'pl.memleak.panel'
+version '0.0.1'
+
+apply plugin: 'java'
+apply plugin: 'c'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.+'
+}
+
+if(!hasProperty('jvmIncludePath') || !hasProperty('jvmPlatformIncludePath'))
+    throw new InvalidUserDataException('jvmIncludePath and/or jvmPlatformIncludePath not ' +
+            'specified in gradle.properties (see gradle.properties.example).\n' +
+            'Set jvmIncludePath to a directory containing \'jni.h\' (typically: ' +
+            '/usr/lib/jvm/*/include) and jvmPlatformIncludePath to \'jni_md.h\' location ' +
+            '(typically: /usr/lib/jvm/*/include/linux).')
+
+model {
+    components {
+        kadm5_jni(NativeLibrarySpec) {
+            sources {
+                c
+            }
+            binaries {
+                withType(SharedLibraryBinarySpec) {
+                    cCompiler.args '-Wall', '-pedantic', '-Werror',
+                    '-I' + jvmIncludePath, '-I' + jvmPlatformIncludePath
+                    linker.args '-lkadm5clnt'
+                }
+                withType(StaticLibraryBinarySpec) {
+                    buildable = false
+                }
+            }
+        }
+    }
+}

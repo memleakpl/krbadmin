@@ -1,0 +1,2 @@
+jvmIncludePath=/usr/lib64/jvm/icedtea-8/include
+jvmPlatformIncludePath=/usr/lib64/jvm/icedtea-8/include/linux
