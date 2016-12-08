@@ -91,12 +91,12 @@ public class Kadm5 implements KrbAdmin, Closeable {
 
     private native String nativeGetRealm(long context) throws Kadm5JNIException;
 
-    private native void nativeAddPrincipal(long context, long handle, String principal, String
-            password) throws Kadm5JNIException;
+    private native void nativeAddPrincipal(long context, long handle, String principal,
+                                           String password) throws Kadm5JNIException;
 
     private native void nativeDeletePrincipal(long context, long handle, String principal) throws
             Kadm5JNIException;
 
-    private native void nativeChangePassword(long context, long handle, String principal, String
-            password) throws Kadm5JNIException;
+    private native void nativeChangePassword(long context, long handle, String principal,
+                                             String password) throws Kadm5JNIException;
 }

@@ -17,8 +17,8 @@ public class Kadm5JNIRuntimeException extends Kadm5RuntimeException {
         super(cause);
     }
 
-    public Kadm5JNIRuntimeException(String message, Throwable cause, boolean enableSuppression, boolean
-            writableStackTrace) {
+    public Kadm5JNIRuntimeException(String message, Throwable cause, boolean enableSuppression,
+                                    boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);
     }
 }
