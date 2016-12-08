@@ -1,8 +1,8 @@
 #include "../headers/throw_utils.h"
 
 const char *exception_map[] = {
-  "pl/memleak/krblib/Kadm5Exception",
-  "pl/memleak/krblib/Kadm5JNIException"
+  "pl/memleak/krblib/Kadm5JNIException",
+  "pl/memleak/krblib/Kadm5JNIRuntimeException"
 };
 
 void throw(JNIEnv *env, ex e, const char* format, ...) {

@@ -128,7 +128,7 @@ JNIEXPORT jstring JNICALL Java_pl_memleak_krblib_Kadm5_nativeGetRealm(
   }
 
   if ((krb5_error = krb5_get_default_realm(*krb5_ctx, &realm))) {
-    perror_throw(env, EX_RT, "krb5_get_default_realm", *krb5_ctx,
+    perror_throw(env, EX, "krb5_get_default_realm", *krb5_ctx,
                  krb5_error);
     return NULL;
   }
