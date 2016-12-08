@@ -17,8 +17,8 @@ JNIEXPORT jlong JNICALL Java_pl_memleak_krblib_Kadm5_nativeInitContext(
   krb5_error_code krb5_error;
 
   if ((krb5_error = kadm5_init_krb5_context(krb5_ctx))) {
-    throw(env, "krb5_error_code %d during kadm5_init_krb5_context()",
-          krb5_error);
+    throw(env, EX_RT,
+          "krb5_error_code %d during kadm5_init_krb5_context()", krb5_error);
     free(krb5_ctx);
     return (jlong) NULL;
   }
@@ -70,15 +70,15 @@ JNIEXPORT jlong JNICALL Java_pl_memleak_krblib_Kadm5_nativeInitWithSKey(
   void *handle = NULL;
 
   if (!krb5_ctx) {
-    throw(env, "context is NULL");
+    throw(env, EX_RT, "context is NULL");
     return (jlong) NULL;
   }
   if (!j_principal) {
-    throw(env, "principal is NULL");
+    throw(env, EX_RT, "principal is NULL");
     return (jlong) NULL;
   }
   if (!j_keytab) {
-    throw(env, "keytab is NULL");
+    throw(env, EX_RT, "keytab is NULL");
     return (jlong) NULL;
   }
 
@@ -86,7 +86,8 @@ JNIEXPORT jlong JNICALL Java_pl_memleak_krblib_Kadm5_nativeInitWithSKey(
 
   kadm5_params.mask = KADM5_CONFIG_REALM;
   if ((krb5_error = krb5_get_default_realm(*krb5_ctx, &kadm5_params.realm))) {
-    krb5_perror_throw(env, "krb5_get_default_realm", *krb5_ctx, krb5_error);
+    perror_throw(env, EX_RT, "krb5_get_default_realm", *krb5_ctx,
+                      krb5_error);
     return (jlong) NULL;
   }
 
@@ -98,7 +99,7 @@ JNIEXPORT jlong JNICALL Java_pl_memleak_krblib_Kadm5_nativeInitWithSKey(
                                         KADM5_STRUCT_VERSION,
                                         KADM5_API_VERSION_4, NULL,
                                         &handle)))
-    krb5_perror_throw(env, "kadm5_init_with_skey", *krb5_ctx, krb5_error);
+    perror_throw(env, EX, "kadm5_init_with_skey", *krb5_ctx, krb5_error);
 
   krb5_free_default_realm(*krb5_ctx, kadm5_params.realm);
   (*env)->ReleaseStringUTFChars(env, j_principal, str_principal);
@@ -122,12 +123,13 @@ JNIEXPORT jstring JNICALL Java_pl_memleak_krblib_Kadm5_nativeGetRealm(
   jstring j_realm;
 
   if (!krb5_ctx) {
-    throw(env, "context is NULL");
+    throw(env, EX_RT, "context is NULL");
     return NULL;
   }
 
   if ((krb5_error = krb5_get_default_realm(*krb5_ctx, &realm))) {
-    krb5_perror_throw(env, "krb5_get_default_realm", *krb5_ctx, krb5_error);
+    perror_throw(env, EX_RT, "krb5_get_default_realm", *krb5_ctx,
+                 krb5_error);
     return NULL;
   }
 
@@ -159,15 +161,15 @@ JNIEXPORT void JNICALL Java_pl_memleak_krblib_Kadm5_nativeAddPrincipal(
   long mask = KADM5_PRINCIPAL;
 
   if (!krb5_handle) {
-    throw(env, "handle is NULL");
+    throw(env, EX_RT, "handle is NULL");
     return;
   }
   if (!j_principal) {
-    throw(env, "principal is NULL");
+    throw(env, EX_RT, "principal is NULL");
     return;
   }
   if (!j_password) {
-    throw(env, "password is NULL");
+    throw(env, EX_RT, "password is NULL");
     return;
   }
 
@@ -178,7 +180,7 @@ JNIEXPORT void JNICALL Java_pl_memleak_krblib_Kadm5_nativeAddPrincipal(
                                &krb5_principal.principal);
   (*env)->ReleaseStringUTFChars(env, j_principal, str_principal);
   if (krb5_error) {
-    krb5_perror_throw(env, "krb5_parse_name", *krb5_ctx, krb5_error);
+    perror_throw(env, EX_RT, "krb5_parse_name", *krb5_ctx, krb5_error);
     return;
   }
 
@@ -186,7 +188,7 @@ JNIEXPORT void JNICALL Java_pl_memleak_krblib_Kadm5_nativeAddPrincipal(
 
   if ((krb5_error = kadm5_create_principal(krb5_handle, &krb5_principal, mask,
                                            (char *) str_password)))
-    krb5_perror_throw(env, "kadm5_create_principal", *krb5_ctx, krb5_error);
+    perror_throw(env, EX, "kadm5_create_principal", *krb5_ctx, krb5_error);
 
   (*env)->ReleaseStringUTFChars(env, j_password, str_password);
   krb5_free_principal(*krb5_ctx, krb5_principal.principal);
@@ -210,15 +212,15 @@ JNIEXPORT void JNICALL Java_pl_memleak_krblib_Kadm5_nativeDeletePrincipal(
   krb5_principal krb5_principal;
 
   if (!krb5_ctx) {
-    throw(env, "context is NULL");
+    throw(env, EX_RT, "context is NULL");
     return;
   }
   if (!handle) {
-    throw(env, "handle is NULL");
+    throw(env, EX_RT, "handle is NULL");
     return;
   }
   if (!j_principal) {
-    throw(env, "principal is NULL");
+    throw(env, EX_RT, "principal is NULL");
     return;
   }
 
@@ -227,7 +229,7 @@ JNIEXPORT void JNICALL Java_pl_memleak_krblib_Kadm5_nativeDeletePrincipal(
   krb5_error = krb5_parse_name(*krb5_ctx, str_principal, &krb5_principal);
   (*env)->ReleaseStringUTFChars(env, j_principal, str_principal);
   if (krb5_error) {
-    krb5_perror_throw(env, "krb5_parse_name", *krb5_ctx, krb5_error);
+    perror_throw(env, EX_RT, "krb5_parse_name", *krb5_ctx, krb5_error);
     return;
   }
 
@@ -235,7 +237,7 @@ JNIEXPORT void JNICALL Java_pl_memleak_krblib_Kadm5_nativeDeletePrincipal(
   krb5_free_principal(*krb5_ctx, krb5_principal);
 
   if (krb5_error)
-    krb5_perror_throw(env, "kadm5_delete_principal", *krb5_ctx, krb5_error);
+    perror_throw(env, EX, "kadm5_delete_principal", *krb5_ctx, krb5_error);
 }
 
 /*
@@ -257,19 +259,19 @@ JNIEXPORT void JNICALL Java_pl_memleak_krblib_Kadm5_nativeChangePassword(
   krb5_principal krb5_principal;
 
   if (!j_context) {
-    throw(env, "context is NULL");
+    throw(env, EX_RT, "context is NULL");
     return;
   }
   if (!handle) {
-    throw(env, "handle is NULL");
+    throw(env, EX_RT, "handle is NULL");
     return;
   }
   if (!j_principal) {
-    throw(env, "principal is NULL");
+    throw(env, EX_RT, "principal is NULL");
     return;
   }
   if (!j_password) {
-    throw(env, "password is NULL");
+    throw(env, EX_RT, "password is NULL");
     return;
   }
 
@@ -278,7 +280,7 @@ JNIEXPORT void JNICALL Java_pl_memleak_krblib_Kadm5_nativeChangePassword(
   krb5_error = krb5_parse_name(*krb5_ctx, str_principal, &krb5_principal);
   (*env)->ReleaseStringUTFChars(env, j_principal, str_principal);
   if (krb5_error) {
-    krb5_perror_throw(env, "krb5_parse_name", *krb5_ctx, krb5_error);
+    perror_throw(env, EX_RT, "krb5_parse_name", *krb5_ctx, krb5_error);
     return;
   }
 
@@ -286,7 +288,7 @@ JNIEXPORT void JNICALL Java_pl_memleak_krblib_Kadm5_nativeChangePassword(
 
   if ((krb5_error = kadm5_chpass_principal(handle, krb5_principal,
                                            (char*) str_password)))
-    krb5_perror_throw(env, "kadm5_chpass_principal", *krb5_ctx, krb5_error);
+    perror_throw(env, EX, "kadm5_chpass_principal", *krb5_ctx, krb5_error);
 
   (*env)->ReleaseStringUTFChars(env, j_password, str_password);
   krb5_free_principal(*krb5_ctx, krb5_principal);
