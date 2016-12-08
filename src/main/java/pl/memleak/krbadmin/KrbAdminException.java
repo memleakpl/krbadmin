@@ -1,4 +1,4 @@
-package pl.memleak.krblib;
+package pl.memleak.krbadmin;
 
 public class KrbAdminException extends Exception {
     public KrbAdminException() {

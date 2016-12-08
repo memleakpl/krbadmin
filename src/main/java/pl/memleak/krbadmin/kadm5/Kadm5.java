@@ -1,4 +1,6 @@
-package pl.memleak.krblib;
+package pl.memleak.krbadmin.kadm5;
+
+import pl.memleak.krbadmin.KrbAdmin;
 
 import java.io.Closeable;
 import java.io.IOException;

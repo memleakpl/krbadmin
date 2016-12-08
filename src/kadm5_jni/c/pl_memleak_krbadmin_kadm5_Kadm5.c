@@ -1,4 +1,4 @@
-#include "../headers/pl_memleak_krblib_Kadm5.h"
+#include "../headers/pl_memleak_krbadmin_kadm5_Kadm5.h"
 
 #include "../headers/throw_utils.h"
 
@@ -6,11 +6,11 @@
 #include <kadm5/admin.h>
 
 /*
- * Class:     pl_memleak_krblib_Kadm5
+ * Class:     pl_memleak_krbadmin_kadm5_Kadm5
  * Method:    nativeInitContext
  * Signature: ()J
  */
-JNIEXPORT jlong JNICALL Java_pl_memleak_krblib_Kadm5_nativeInitContext(
+JNIEXPORT jlong JNICALL Java_pl_memleak_krbadmin_kadm5_Kadm5_nativeInitContext(
     JNIEnv *env,
     jobject this_obj) {
   krb5_context *krb5_ctx = malloc(sizeof(*krb5_ctx));
@@ -27,11 +27,11 @@ JNIEXPORT jlong JNICALL Java_pl_memleak_krblib_Kadm5_nativeInitContext(
 }
 
 /*
- * Class:     pl_memleak_krblib_Kadm5
+ * Class:     pl_memleak_krbadmin_kadm5_Kadm5
  * Method:    nativeFreeContext
  * Signature: (J)V
  */
-JNIEXPORT void JNICALL Java_pl_memleak_krblib_Kadm5_nativeFreeContext(
+JNIEXPORT void JNICALL Java_pl_memleak_krbadmin_kadm5_Kadm5_nativeFreeContext(
     JNIEnv *env,
     jobject this_obj,
     jlong ctx) {
@@ -41,11 +41,11 @@ JNIEXPORT void JNICALL Java_pl_memleak_krblib_Kadm5_nativeFreeContext(
 }
 
 /*
- * Class:     pl_memleak_krblib_Kadm5
+ * Class:     pl_memleak_krbadmin_kadm5_Kadm5
  * Method:    nativeFreeHandle
  * Signature: (J)V
  */
-JNIEXPORT void JNICALL Java_pl_memleak_krblib_Kadm5_nativeFreeHandle(
+JNIEXPORT void JNICALL Java_pl_memleak_krbadmin_kadm5_Kadm5_nativeFreeHandle(
     JNIEnv *env,
     jobject this_obj,
     jlong j_handle) {
@@ -53,11 +53,11 @@ JNIEXPORT void JNICALL Java_pl_memleak_krblib_Kadm5_nativeFreeHandle(
 }
 
 /*
- * Class:     pl_memleak_krblib_Kadm5
+ * Class:     pl_memleak_krbadmin_kadm5_Kadm5
  * Method:    nativeInitWithSKey
  * Signature: (JLjava/lang/String;Ljava/lang/String;Ljava/lang/String;)J
  */
-JNIEXPORT jlong JNICALL Java_pl_memleak_krblib_Kadm5_nativeInitWithSKey(
+JNIEXPORT jlong JNICALL Java_pl_memleak_krbadmin_kadm5_Kadm5_nativeInitWithSKey(
     JNIEnv *env,
     jobject this_obj,
     jlong j_ctx,
@@ -108,11 +108,11 @@ JNIEXPORT jlong JNICALL Java_pl_memleak_krblib_Kadm5_nativeInitWithSKey(
 }
 
 /*
- * Class:     pl_memleak_krblib_Kadm5
+ * Class:     pl_memleak_krbadmin_kadm5_Kadm5
  * Method:    nativeGetRealm
  * Signature: (J)Ljava/lang/String;
  */
-JNIEXPORT jstring JNICALL Java_pl_memleak_krblib_Kadm5_nativeGetRealm(
+JNIEXPORT jstring JNICALL Java_pl_memleak_krbadmin_kadm5_Kadm5_nativeGetRealm(
     JNIEnv *env,
     jobject this_obj,
     jlong j_ctx) {
@@ -139,11 +139,11 @@ JNIEXPORT jstring JNICALL Java_pl_memleak_krblib_Kadm5_nativeGetRealm(
 }
 
 /*
- * Class:     pl_memleak_krblib_Kadm5
+ * Class:     pl_memleak_krbadmin_kadm5_Kadm5
  * Method:    nativeAddPrincipal
  * Signature: (JJLjava/lang/String;Ljava/lang/String;)V
  */
-JNIEXPORT void JNICALL Java_pl_memleak_krblib_Kadm5_nativeAddPrincipal(
+JNIEXPORT void JNICALL Java_pl_memleak_krbadmin_kadm5_Kadm5_nativeAddPrincipal(
     JNIEnv *env,
     jobject this_obj,
     jlong j_context,
@@ -193,11 +193,11 @@ JNIEXPORT void JNICALL Java_pl_memleak_krblib_Kadm5_nativeAddPrincipal(
 }
 
 /*
- * Class:     pl_memleak_krblib_Kadm5
+ * Class:     pl_memleak_krbadmin_kadm5_Kadm5
  * Method:    nativeDeletePrincipal
  * Signature: (JJLjava/lang/String;)V
  */
-JNIEXPORT void JNICALL Java_pl_memleak_krblib_Kadm5_nativeDeletePrincipal(
+JNIEXPORT void JNICALL Java_pl_memleak_krbadmin_kadm5_Kadm5_nativeDeletePrincipal(
     JNIEnv *env,
     jobject this_obj,
     jlong j_context,
@@ -239,11 +239,11 @@ JNIEXPORT void JNICALL Java_pl_memleak_krblib_Kadm5_nativeDeletePrincipal(
 }
 
 /*
- * Class:     pl_memleak_krblib_Kadm5
+ * Class:     pl_memleak_krbadmin_kadm5_Kadm5
  * Method:    nativeChangePassword
  * Signature: (JJLjava/lang/String;Ljava/lang/String;)V
  */
-JNIEXPORT void JNICALL Java_pl_memleak_krblib_Kadm5_nativeChangePassword(
+JNIEXPORT void JNICALL Java_pl_memleak_krbadmin_kadm5_Kadm5_nativeChangePassword(
     JNIEnv *env,
     jobject this_obj,
     jlong j_context,

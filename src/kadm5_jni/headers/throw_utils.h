@@ -1,5 +1,5 @@
-#ifndef KRBLIB_THROW_UTILS_H
-#define KRBLIB_THROW_UTILS_H
+#ifndef KADM5_JNI_THROW_UTILS_H
+#define KADM5_JNI_THROW_UTILS_H
 
 #include <stdbool.h>
 

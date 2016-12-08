@@ -1,7 +1,7 @@
 #include "../headers/throw_utils.h"
 
 void throw(JNIEnv *env, const char* format, ...) {
-  const jclass e = (*env)->FindClass(env,"pl/memleak/krblib/Kadm5JNIException");
+  const jclass e = (*env)->FindClass(env,"pl/memleak/krbadmin/kadm5/Kadm5JNIException");
   va_list args;
   char msg[255];
 
