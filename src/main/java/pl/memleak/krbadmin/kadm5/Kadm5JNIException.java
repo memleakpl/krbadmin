@@ -1,4 +1,4 @@
-package pl.memleak.krblib;
+package pl.memleak.krbadmin.kadm5;
 
 public class Kadm5JNIException extends Kadm5Exception {
     public Kadm5JNIException() {
