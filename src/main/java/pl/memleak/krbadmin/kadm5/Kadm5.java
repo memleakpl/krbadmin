@@ -11,18 +11,11 @@ import java.io.IOException;
  * @author mmos
  */
 public class Kadm5 implements KrbAdmin, Closeable {
-    static {
-        try {
-            System.loadLibrary("kadm5_jni");
-        } catch (UnsatisfiedLinkError e) {
-            throw new Kadm5JNIException("Failed to load JNI library", e);
-        }
-    }
-
     private Long context;
     private Long handle;
 
-    public Kadm5(String principal, String keytab) {
+    public Kadm5(String jniAbsolutePath, String principal, String keytab) {
+        System.load(jniAbsolutePath);
         context = nativeInitContext();
         handle = nativeInitWithSKey(context, principal, keytab);
     }
