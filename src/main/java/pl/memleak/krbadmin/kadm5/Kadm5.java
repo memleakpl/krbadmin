@@ -44,7 +44,7 @@ public class Kadm5 implements KrbAdmin, Closeable {
         freeHandle();
     }
 
-    public String getRealm() {
+    public String getRealm() throws Kadm5Exception {
         assertContextInitialized();
         return nativeGetRealm(context);
     }
@@ -82,13 +82,14 @@ public class Kadm5 implements KrbAdmin, Closeable {
 
     private native long nativeInitWithSKey(long context, String principal, String keytab);
 
-    private native String nativeGetRealm(long context);
+    private native String nativeGetRealm(long context) throws Kadm5JNIException;
 
-    private native void nativeAddPrincipal(long context, long handle, String principal, String
-            password);
+    private native void nativeAddPrincipal(long context, long handle, String principal,
+                                           String password) throws Kadm5JNIException;
 
-    private native void nativeDeletePrincipal(long context, long handle, String principal);
+    private native void nativeDeletePrincipal(long context, long handle, String principal) throws
+            Kadm5JNIException;
 
-    private native void nativeChangePassword(long context, long handle, String principal, String
-            password);
+    private native void nativeChangePassword(long context, long handle, String principal,
+                                             String password) throws Kadm5JNIException;
 }
