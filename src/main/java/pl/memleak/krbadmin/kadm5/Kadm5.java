@@ -44,6 +44,7 @@ public class Kadm5 implements KrbAdmin, Closeable {
         freeHandle();
     }
 
+    @Override
     public String getRealm() throws Kadm5Exception {
         assertContextInitialized();
         return nativeGetRealm(context);

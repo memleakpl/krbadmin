@@ -6,4 +6,6 @@ public interface KrbAdmin {
     void deletePrincipal(String principal) throws KrbAdminException;
 
     void changePassword(String principal, String password) throws KrbAdminException;
+
+    String getRealm() throws KrbAdminException;
 }
