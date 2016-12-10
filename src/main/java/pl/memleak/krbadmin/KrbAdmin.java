@@ -1,6 +1,6 @@
 package pl.memleak.krbadmin;
 
-public interface KrbAdmin {
+public interface KrbAdmin extends AutoCloseable {
     void addPrincipal(String principal, String password) throws KrbAdminException;
 
     void deletePrincipal(String principal) throws KrbAdminException;

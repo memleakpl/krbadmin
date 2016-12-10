@@ -10,7 +10,7 @@ import java.io.IOException;
  *
  * @author mmos
  */
-public class Kadm5 implements KrbAdmin, Closeable {
+public class Kadm5 implements KrbAdmin {
     private Long context;
     private Long handle;
 
