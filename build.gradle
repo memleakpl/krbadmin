@@ -25,6 +25,7 @@ if(!hasProperty('jvmIncludePath') || !hasProperty('jvmPlatformIncludePath'))
 model {
     components {
         kadm5_jni(NativeLibrarySpec) {
+            baseName name + '-' + version
             sources {
                 c
             }
