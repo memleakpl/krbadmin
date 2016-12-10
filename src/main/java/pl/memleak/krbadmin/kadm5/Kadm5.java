@@ -2,7 +2,6 @@ package pl.memleak.krbadmin.kadm5;
 
 import pl.memleak.krbadmin.KrbAdmin;
 
-import java.io.Closeable;
 import java.io.IOException;
 
 /**
@@ -21,9 +20,9 @@ public class Kadm5 implements KrbAdmin {
     }
 
     @Override
-    public void addPrincipal(String principal, String password) throws Kadm5Exception {
+    public void createPrincipal(String principal, String password) throws Kadm5Exception {
         assertInitialized();
-        nativeAddPrincipal(context, handle, principal, password);
+        nativeCreatePrincipal(context, handle, principal, password);
     }
 
     @Override
@@ -85,8 +84,8 @@ public class Kadm5 implements KrbAdmin {
 
     private native String nativeGetRealm(long context) throws Kadm5JNIException;
 
-    private native void nativeAddPrincipal(long context, long handle, String principal,
-                                           String password) throws Kadm5JNIException;
+    private native void nativeCreatePrincipal(long context, long handle, String principal,
+                                              String password) throws Kadm5JNIException;
 
     private native void nativeDeletePrincipal(long context, long handle, String principal) throws
             Kadm5JNIException;

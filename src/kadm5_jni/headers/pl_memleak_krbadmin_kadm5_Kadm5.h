@@ -49,10 +49,10 @@ JNIEXPORT jstring JNICALL Java_pl_memleak_krbadmin_kadm5_Kadm5_nativeGetRealm
 
 /*
  * Class:     pl_memleak_krbadmin_kadm5_Kadm5
- * Method:    nativeAddPrincipal
+ * Method:    nativeCreatePrincipal
  * Signature: (JJLjava/lang/String;Ljava/lang/String;)V
  */
-JNIEXPORT void JNICALL Java_pl_memleak_krbadmin_kadm5_Kadm5_nativeAddPrincipal
+JNIEXPORT void JNICALL Java_pl_memleak_krbadmin_kadm5_Kadm5_nativeCreatePrincipal
   (JNIEnv *, jobject, jlong, jlong, jstring, jstring);
 
 /*
