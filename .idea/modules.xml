@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/krblib.iml" filepath="$PROJECT_DIR$/.idea/modules/krblib.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/krblib_main.iml" filepath="$PROJECT_DIR$/.idea/modules/krblib_main.iml" group="krblib" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/krblib_test.iml" filepath="$PROJECT_DIR$/.idea/modules/krblib_test.iml" group="krblib" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/krbadmin.iml" filepath="$PROJECT_DIR$/.idea/modules/krbadmin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/krbadmin_main.iml" filepath="$PROJECT_DIR$/.idea/modules/krbadmin_main.iml" group="krbadmin" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/krbadmin_test.iml" filepath="$PROJECT_DIR$/.idea/modules/krbadmin_test.iml" group="krbadmin" />
     </modules>
   </component>
 </project>

@@ -1,4 +1,6 @@
-package pl.memleak.krblib;
+package pl.memleak.krbadmin.kadm5;
+
+import pl.memleak.krbadmin.KrbAdmin;
 
 import java.io.Closeable;
 import java.io.IOException;
@@ -9,18 +11,11 @@ import java.io.IOException;
  * @author mmos
  */
 public class Kadm5 implements KrbAdmin, Closeable {
-    static {
-        try {
-            System.loadLibrary("kadm5_jni");
-        } catch (UnsatisfiedLinkError e) {
-            throw new Kadm5JNIException("Failed to load JNI library", e);
-        }
-    }
-
     private Long context;
     private Long handle;
 
-    public Kadm5(String principal, String keytab) {
+    public Kadm5(String jniAbsolutePath, String principal, String keytab) {
+        System.load(jniAbsolutePath);
         context = nativeInitContext();
         handle = nativeInitWithSKey(context, principal, keytab);
     }
@@ -49,7 +44,7 @@ public class Kadm5 implements KrbAdmin, Closeable {
         freeHandle();
     }
 
-    public String getRealm() {
+    public String getRealm() throws Kadm5Exception {
         assertContextInitialized();
         return nativeGetRealm(context);
     }
@@ -87,13 +82,14 @@ public class Kadm5 implements KrbAdmin, Closeable {
 
     private native long nativeInitWithSKey(long context, String principal, String keytab);
 
-    private native String nativeGetRealm(long context);
+    private native String nativeGetRealm(long context) throws Kadm5JNIException;
 
-    private native void nativeAddPrincipal(long context, long handle, String principal, String
-            password);
+    private native void nativeAddPrincipal(long context, long handle, String principal,
+                                           String password) throws Kadm5JNIException;
 
-    private native void nativeDeletePrincipal(long context, long handle, String principal);
+    private native void nativeDeletePrincipal(long context, long handle, String principal) throws
+            Kadm5JNIException;
 
-    private native void nativeChangePassword(long context, long handle, String principal, String
-            password);
+    private native void nativeChangePassword(long context, long handle, String principal,
+                                             String password) throws Kadm5JNIException;
 }

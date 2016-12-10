@@ -1,4 +1,6 @@
-package pl.memleak.krblib;
+package pl.memleak.krbadmin.kadm5;
+
+import pl.memleak.krbadmin.KrbAdminException;
 
 public class Kadm5Exception extends KrbAdminException {
     public Kadm5Exception() {
