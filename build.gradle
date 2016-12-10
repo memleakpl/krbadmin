@@ -1,4 +1,4 @@
-group 'pl.memleak.panel'
+group 'pl.memleak'
 version '0.0.1'
 
 apply plugin: 'java'
