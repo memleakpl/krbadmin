@@ -1,8 +1,9 @@
-group 'pl.memleak.panel'
+group 'pl.memleak'
 version '0.0.1'
 
 apply plugin: 'java'
 apply plugin: 'c'
+apply plugin: 'maven-publish'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -39,6 +40,14 @@ model {
                     buildable = false
                 }
             }
+        }
+    }
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
         }
     }
 }
