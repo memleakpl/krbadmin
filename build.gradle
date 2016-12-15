@@ -3,7 +3,9 @@ version '0.0.3'
 
 apply plugin: 'java'
 apply plugin: 'c'
-apply plugin: 'maven-publish'
+apply plugin: 'maven'
+apply plugin: 'signing'
+apply plugin: 'publishing'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -13,7 +15,7 @@ repositories {
 }
 
 dependencies {
-    testCompile group: 'junit', name: 'junit', version: '4.+'
+    testCompile group: 'junit', name: 'junit', version: '4.12'
 }
 
 if(!hasProperty('jvmIncludePath') || !hasProperty('jvmPlatformIncludePath'))
@@ -44,10 +46,64 @@ model {
     }
 }
 
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            from components.java
+task javadocJar(type: Jar) {
+    classifier = 'javadoc'
+    from javadoc
+}
+
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+artifacts {
+    archives jar, javadocJar, sourcesJar
+}
+
+signing {
+    sign configurations.archives
+}
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+            repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2") {
+                authentication(userName: ossrhUsername, password: ossrhPassword)
+            }
+
+            snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots") {
+                authentication(userName: ossrhUsername, password: ossrhPassword)
+            }
+
+            pom.project {
+                name 'KrbAdmin'
+                groupId 'pl.memleak'
+                packaging 'jar'
+                description 'Kerberos Administration Protocol library'
+                url 'https://gitlab.memleak.pl/memleak/krbadmin'
+
+                scm {
+                    connection 'scm:git@gitlab.memleak.pl:memleak/krbadmin.git'
+                    developerConnection 'scm:git@gitlab.memleak.pl:memleak/krbadmin.git'
+                    url 'https://gitlab.memleak.pl/memleak/krbadmin'
+                }
+
+                licenses {
+                    license {
+                        name 'MIT License'
+                        url 'http://www.opensource.org/licenses/mit-license.php'
+                    }
+                }
+
+                developers {
+                    developer {
+                        name 'Marcin Moskal'
+                        email 'mmos@memleak.pl'
+                    }
+                }
+            }
         }
     }
 }
