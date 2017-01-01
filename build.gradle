@@ -7,6 +7,9 @@ apply plugin: 'maven'
 apply plugin: 'signing'
 apply plugin: 'publishing'
 
+def ossrhUsername = hasProperty('ossrhUsername') ? ossrhUsername : ''
+def ossrhPassword = hasProperty('ossrhPassword') ? ossrhPassword : ''
+
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
