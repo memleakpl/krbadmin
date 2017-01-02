@@ -10,68 +10,72 @@ import java.io.IOException;
  * @author mmos
  */
 public class Kadm5 implements KrbAdmin {
-    private Long context;
-    private Long handle;
+    private String principal;
+    private String keytab;
 
     public Kadm5(String jniAbsolutePath, String principal, String keytab) {
+        this.keytab = keytab;
+        this.principal = principal;
         System.load(jniAbsolutePath);
-        context = nativeInitContext();
-        handle = nativeInitWithSKey(context, principal, keytab);
     }
 
     @Override
     public void createPrincipal(String principal, String password) throws Kadm5Exception {
-        assertInitialized();
-        nativeCreatePrincipal(context, handle, principal, password);
+        Long context = null;
+        Long handle = null;
+        try {
+            context = nativeInitContext();
+            handle = nativeInitWithSKey(context, this.principal, keytab);
+            nativeCreatePrincipal(context, handle, principal, password);
+        } finally {
+            if(handle != null) nativeFreeHandle(handle);
+            if(context != null) nativeFreeContext(context);
+        }
     }
 
     @Override
     public void deletePrincipal(String principal) throws Kadm5Exception {
-        assertInitialized();
-        nativeDeletePrincipal(context, handle, principal);
+        Long context = null;
+        Long handle = null;
+        try {
+            context = nativeInitContext();
+            handle = nativeInitWithSKey(context, this.principal, keytab);
+            nativeDeletePrincipal(context, handle, principal);
+        } finally {
+            if(handle != null) nativeFreeHandle(handle);
+            if(context != null) nativeFreeContext(context);
+        }
     }
 
     @Override
     public void changePassword(String principal, String password) throws Kadm5Exception {
-        assertInitialized();
-        nativeChangePassword(context, handle, principal, password);
+        Long context = null;
+        Long handle = null;
+        try {
+            context = nativeInitContext();
+            handle = nativeInitWithSKey(context, this.principal, keytab);
+            nativeChangePassword(context, handle, principal, password);
+        } finally {
+            if(handle != null) nativeFreeHandle(handle);
+            if(context != null) nativeFreeContext(context);
+        }
     }
 
     @Override
     public void close() throws IOException {
-        freeContext();
-        freeHandle();
     }
 
     @Override
     public String getRealm() throws Kadm5Exception {
-        assertContextInitialized();
-        return nativeGetRealm(context);
-    }
-
-    private void freeContext() {
-        nativeFreeContext(context);
-        context = null;
-    }
-
-    private void freeHandle() {
-        nativeFreeHandle(handle);
-        handle = null;
-    }
-
-    private void assertContextInitialized() {
-        if (context == null)
-            throw new Kadm5RuntimeException("Context is not initialized");
-    }
-
-    private void assertHandleInitialized() {
-       if(handle == null)
-           throw new Kadm5RuntimeException("Handle is not initialized");
-    }
-
-    private void assertInitialized() {
-       assertContextInitialized();
-       assertHandleInitialized();
+        Long context = null;
+        String realm;
+        try {
+            context = nativeInitContext();
+            realm = nativeGetRealm(context);
+        } finally {
+            if(context != null) nativeFreeContext(context);
+        }
+        return realm;
     }
 
     private native long nativeInitContext();
